@@ -1,11 +1,12 @@
 <?php
 require_once 'connect.php';
+require_once 'userLogic.php';
 session_start();
 $err = [];
 $_SESSION['login'] = '';
 
 if($_SESSION['login']){
-    $_SESSION['login'] = '';
+    session_destroy();
 }
 
 // ログインボタン押したときの処理
@@ -42,9 +43,18 @@ if(isset($_POST['login-submit'])) {
         if(!$rows){
             $err[] = 'ログインに失敗しました';
         }else{
+            $result = userLogic::flag($_POST['login']);
             $_SESSION['login'] = true;
-            header("Location:https://nimotsu.refine-web.co.jp/nimotsu/menu.php");
-            exit;
+            $_SESSION['user'] = $_POST['login'];
+            // header('Location:https://nimotsu.refine-web.co.jp/nimotsu/menu.php');
+            //     exit();
+            if(!$result){
+                header("Location:sampleLogin.php");
+                exit();
+            }else{
+                header('Location:menu.php');
+                exit();
+            }
         }
     
     }
@@ -80,7 +90,7 @@ if(isset($_POST['login-submit'])) {
                 <br>
                 <input type="submit" name="login-submit" value="ログイン">
             </form>
-            <a href="https://nimotsu.refine-web.co.jp/nimotsu/pre_register.php">新規ログイン</a>
+            <a href="pre_register.php">新規ログイン</a>
         </div>
     </section>
 </body>

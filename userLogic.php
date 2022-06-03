@@ -87,8 +87,55 @@ class userLogic {
         $stmt->bindValue(1,e($urltoken));
         $stmt->execute();
     }
+
+    public static function timeOut() {
+        try {
+            $sql = 'DELETE FROM pre_de_member WHERE date < now() - interval 5 minute AND flag=0' ;
+            $db = getDb();
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->rowCount();
+            return $result;
+        }catch(PDOException $e) {
+            die('エラー：' . $e->getMessage());
+        }
+    }
+    public static function flag($name) {
+        $result = false;
+        $sql = 'SELECT * FROM free WHERE name=? AND flag=1';
+        $db = getDb();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(1,e($name));
+        $stmt->execute();
+        $r = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($r) {
+            return $result = true;
+        }else{
+            return $result;
+        }
+    }
+
+    public static function second($secret,$q,$u) {
+        $sql = 'UPDATE free SET flag=0,skey=?,qr=? WHERE name=?';
+        $db = getDb();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(1,e($secret));
+        $stmt->bindValue(2,e($q));
+        $stmt->bindValue(3,e($u));
+        $stmt->execute();
+    }
+
+    public static function key($u) {
+        $sql = 'SELECT skey,qr FROM free WHERE name=?';
+        $db = getDb();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(1,e($u));
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
 
-// ko
+
 
 ?>

@@ -1,9 +1,12 @@
 <?php
+require_once 'userLogic.php';
 session_start();
 $_SESSION['token'] = uniqid(bin2hex(random_bytes(13)),true);
 $token = $_SESSION['token'];
 
 header('X-FRAME-OPTIONS:SAMEORIGIN');
+
+$result = userLogic::timeOut();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +21,7 @@ header('X-FRAME-OPTIONS:SAMEORIGIN');
     <section>
         <div class="login-box">
             <h1>会員登録</h1><br>
-            <form method="POST" action="https://nimotsu.refine-web.co.jp/nimotsu/pre_register_check.php">
+            <form method="POST" action="pre_register_check.php">
                 <p>メールアドレス</p>
                 <input type="mail" name="mail">
                 <br>

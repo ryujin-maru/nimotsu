@@ -8,6 +8,8 @@ if(!$_SESSION['login']) {
     exit;
 }
 
+
+
 // 確認ボタンを押したときnumberの合計を表示
 if(isset($_POST['count'])) {
     $sql = 'SELECT SUM(number) from carry';
@@ -43,6 +45,7 @@ if(isset($_POST['count'])) {
             <p ><span class="kei"><?= $count ?></span>個</p>
             <input type="submit" name="count" value="確認">
         </form>
+        <br><a href="second.php">二段階認証設定</a><br><br>
         <a href="https://nimotsu.refine-web.co.jp/nimotsu/login.php">ログアウト</a>
     </section>
 </body>

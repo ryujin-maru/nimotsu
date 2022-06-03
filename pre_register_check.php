@@ -25,7 +25,7 @@ if(!$result) {
 
 if(!$err){
     $urltoken = hash('sha256',uniqid(rand(),1));
-    $url = 'https://nimotsu.refine-web.co.jp/nimotsu/userRegister.php?urltoken=' . $urltoken;
+    $url = 'http://localhost/nimotsu_practice/userRegister.php?urltoken=' . $urltoken;
 
     $data = userLogic::register($urltoken,$_POST['mail']);
     if($data) {
@@ -38,7 +38,7 @@ if(!$err){
         
         if(mb_send_mail($to,$subject,$url)){
             session_destroy();
-            $message = 'メールをお送りしました。24時間以内にメールに記載されたURLからご登録下さい。';
+            $message = 'メールをお送りしました。5分以内にメールに記載されたURLからご登録下さい。';
         }else{
             $err[] = 'メールの送信に失敗しました。';
         }
