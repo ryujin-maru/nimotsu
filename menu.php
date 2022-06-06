@@ -37,7 +37,7 @@ if(isset($_POST['count'])) {
 <body>
     <section class="menu">
         <h1>メニュー画面</h1>
-        <a class="a" href="https://nimotsu.refine-web.co.jp/nimotsu/table.php">テーブル一覧画面へ</a><br><br>
+        <a class="a" href="https://nimotsu.refine-web.co.jp/nimotsu/table2.php">テーブル一覧画面へ</a><br><br>
         <a class="b" href="https://nimotsu.refine-web.co.jp/nimotsu/register.php">荷物登録画面へ</a><br><br>
         <a href="https://nimotsu.refine-web.co.jp/nimotsu/register2.php">荷物登録画面2へ</a><br><br>
         <form class="menu2" method="POST">
@@ -45,7 +45,7 @@ if(isset($_POST['count'])) {
             <p ><span class="kei"><?= $count ?></span>個</p>
             <input type="submit" name="count" value="確認">
         </form>
-        <br><a href="second.php">二段階認証設定</a><br><br>
+        <br><a href="https://nimotsu.refine-web.co.jp/nimotsu/second.php">二段階認証設定</a><br><br>
         <a href="https://nimotsu.refine-web.co.jp/nimotsu/login.php">ログアウト</a>
     </section>
 </body>

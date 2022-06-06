@@ -13,7 +13,7 @@ if(isset($_POST['send'])){
     $checkResult = $ga->verifyCode($result['skey'], $_POST['gacode'], 2);
     if ($checkResult) {
     $_SESSION['login'] = true;
-    header('Location:menu.php');
+    header('Location:https://nimotsu.refine-web.co.jp/nimotsu/menu.php');
     exit();
     } else {
     $err = '認証に失敗しました。';

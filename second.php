@@ -3,25 +3,27 @@ require_once 'GoogleAuthenticator.php';
 require_once 'userLogic.php';
 session_start();
 
-$result = userLogic::flag($_SESSION['name']);
-// var_dump($_SESSION['name']);
+$result = userLogic::flag($_SESSION['user']);
 if(!$result) {
-    header('Location:lift.php');
+    header('Location:https://nimotsu.refine-web.co.jp/nimotsu/lift.php');
     exit();
+}else{
+    $ga = new PHPGangsta_GoogleAuthenticator();
+    $secret = $ga->createSecret();
+    
+    $qrCodeUrl = $ga->getQRCodeGoogleUrl('nimotsu', $secret);
+    
+    $oneCode = $ga->getCode($secret);
+    
+    if(isset($_POST['second'])) {
+        userLogic::second($secret,$qrCodeUrl,$_SESSION['user']);
+        $_SESSION['qr'] = $qrCodeUrl;
+        header('HTTP/1.1 307 Temporary Redirect');
+        header('Location:https://nimotsu.refine-web.co.jp/nimotsu/qr.php');
+        exit();
+    }
 }
 
-$ga = new PHPGangsta_GoogleAuthenticator();
-$secret = $ga->createSecret();
-
-$qrCodeUrl = $ga->getQRCodeGoogleUrl('nimotsu', $secret);
-
-$oneCode = $ga->getCode($secret);
-
-if(isset($_POST['second'])) {
-    userLogic::second($secret,$qrCodeUrl,$_SESSION['user']);
-    $_SESSION['qr'] = $qrCodeUrl;
-    header('Location:qr.php');
-}
 
 ?>
 
@@ -39,6 +41,7 @@ if(isset($_POST['second'])) {
         <form method="post">
             <p style="color: red;">二段階認証を設定しますか？</p>
             <input type="submit" name="second" value="YES">
+
             <a href="menu.php"><input type="button" name="no" value="NO"></a>
         </form>
     </div>

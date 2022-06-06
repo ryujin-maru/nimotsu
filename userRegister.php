@@ -40,7 +40,7 @@ if(empty($_GET)) {
     <div class="login-box">
         <h1>会員登録</h1>
         <?php if(!$err) { ?>
-            <form method="POST" action="register-check.php">
+            <form method="POST" action="https://nimotsu.refine-web.co.jp/nimotsu/register-check.php">
                 <p>メールアドレス</p>
                 <p><?=$mail?></p>
                 <p>名前</p>

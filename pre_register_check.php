@@ -25,7 +25,7 @@ if(!$result) {
 
 if(!$err){
     $urltoken = hash('sha256',uniqid(rand(),1));
-    $url = 'http://localhost/nimotsu_practice/userRegister.php?urltoken=' . $urltoken;
+    $url = 'https://nimotsu.refine-web.co.jp/nimotsu/userRegister.php?urltoken=' . $urltoken;
 
     $data = userLogic::register($urltoken,$_POST['mail']);
     if($data) {

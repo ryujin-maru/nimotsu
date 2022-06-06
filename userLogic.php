@@ -109,7 +109,8 @@ class userLogic {
         $stmt->execute();
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
         if($r) {
-            return $result = true;
+            $result = true;
+            return $result;
         }else{
             return $result;
         }
@@ -134,8 +135,23 @@ class userLogic {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-}
 
+    public static function lift($n) {
+        $result = false;
+        $sql = 'UPDATE free SET flag=1 WHERE name=?';
+        $db = getDb();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(1,$n);
+        $stmt->execute();
+        $r = $stmt->rowcount();
+        if($r != 0) {
+            return $result = true;
+        }else{
+            return $result;
+        }
+
+    }
+}
 
 
 ?>

@@ -49,10 +49,10 @@ if(isset($_POST['login-submit'])) {
             // header('Location:https://nimotsu.refine-web.co.jp/nimotsu/menu.php');
             //     exit();
             if(!$result){
-                header("Location:sampleLogin.php");
+                header("Location:https://nimotsu.refine-web.co.jp/nimotsu/sampleLogin.php");
                 exit();
             }else{
-                header('Location:menu.php');
+                header('Location:https://nimotsu.refine-web.co.jp/nimotsu/menu.php');
                 exit();
             }
         }
