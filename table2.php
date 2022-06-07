@@ -1,6 +1,7 @@
 <?php
 require_once 'connect.php';
 require_once 'logic.php';
+require_once 'userLogic.php';
 session_start();
 $where1 = '=';
 $like = '';
@@ -84,6 +85,13 @@ if(isset($_POST['update'])) {
     }
 }
 
+if(isset($_POST['upload'])) {
+    $r = intval($_POST['po']);
+    $result = userLogic::img($r);
+    // if($result) {
+
+    // }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -115,6 +123,7 @@ if(isset($_POST['update'])) {
                     <th>管理番号</th>
                     <th>名前</th>
                     <th>荷物の数</th>
+                    <th>画像</th>
                     <th width="15%"></th>
                 </tr>
             </thead>
@@ -127,6 +136,17 @@ if(isset($_POST['update'])) {
                         <td><?= $row['id']?></td>
                         <td><?= $row['name']?></td>
                         <td><?= $row['number']?></td>
+                        <td>
+                        <?php if(!isset($_POST['upload'])){ ?>    
+                        <form method="POST" enctype="multipart/form-data">
+                            <input type="file" name="img"><br>
+                            <input type="hidden" name="po" value="<?=$row['id']?>">
+                            <input type="submit" name="upload" value="送信">
+                        </form>
+                        <?php }else{ ?>
+                            <p><?= $row['id']?></p>
+                        <?php } ?>
+                        </td>
                         <td><div class="ko"><form method="POST"><input type="hidden" name="r[]" value="<?=$row['id']?>"><input type="hidden" name="r[]" value="<?=$row['name']?>"><input type="hidden" name="r[]" value="<?=$row['number']?>"><input type="submit" value="変更" name="up-button"></form><form method="POST"><input type="hidden" name="s" value="<?=$row['id']?>"><input type="submit" name="delete" value="削除"></form></div></td>
                     </tr>
                 <?php

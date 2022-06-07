@@ -5,6 +5,8 @@ session_start();
 $err = [];
 $_SESSION['login'] = '';
 
+openssl_get_cipher_methods(); 
+
 if($_SESSION['login']){
     session_destroy();
 }

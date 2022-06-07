@@ -151,6 +151,36 @@ class userLogic {
         }
 
     }
+
+    public static function img($id) {
+        $result = false;
+        if(is_uploaded_file($_FILES['img']['tmp_name'])) {
+            $pathFile = $_FILES['img']['tmp_name'];
+            $pathName = $_FILES['img']['name'];
+            if(pathinfo($pathName,PATHINFO_EXTENSION) != 'png') {
+                print 'エラー';
+            }else{
+                $uploaddir = './img/';
+                $upload = $uploaddir . basename($pathName);
+                move_uploaded_file($pathFile,$upload);
+
+                $result = true;
+            }
+
+            if($result) {
+                $sql = 'UPDATE carry SET img=? WHERE id=?';
+                $db = getDb();
+                $stmt = $db->prepare($sql);
+                $stmt->bindValue(1,$upload);
+                $stmt->bindValue(2,e($id));
+                $stmt->execute();
+            }
+        }else{
+            return $result = false;
+        }
+
+    }
+
 }
 
 
