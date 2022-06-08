@@ -34,22 +34,24 @@ if(isset($_POST['up'])) {
                 $cdn = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if(!$cdn) {
-                    $sql = 'INSERT INTO carry VALUE (?,?,?)';
+                    $sql = 'INSERT INTO carry VALUE (?,?,?,?)';
                     $db = getDb();
                     $stmt = $db->prepare($sql);
                     $stmt->bindValue(1,$data[0]);
                     $stmt->bindValue(2,$data[1]);
                     $stmt->bindValue(3,$data[2]);
+                    $stmt->bindValue(4,$data[3]);
                     $stmt->execute();
                     $index++;
                     $success = 'ファイルをインポートしました。';
                 }else{
-                    $sql = 'UPDATE carry SET name=?,number=? WHERE id=?';
+                    $sql = 'UPDATE carry SET name=?,number=?,img=? WHERE id=?';
                     $db = getDb();
                     $stmt = $db->prepare($sql);
                     $stmt->bindValue(1,htmlspecialchars($data[1]));
                     $stmt->bindValue(2,htmlspecialchars($data[2]));
-                    $stmt->bindValue(3,htmlspecialchars($data[0]));
+                    $stmt->bindValue(3,htmlspecialchars($data[3]));
+                    $stmt->bindValue(4,htmlspecialchars($data[0]));
                     $stmt->execute();
                     $cdn = $stmt->rowCount();
                     $success = 'ファイルをインポートしました。';
@@ -67,7 +69,7 @@ if(isset($_POST['up'])) {
         unlink($filePath);
         fclose($file);
     }
-    header('Location:table.php');
+    header('Location:table2.php');
     exit();
 }
 

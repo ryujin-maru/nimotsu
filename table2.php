@@ -8,6 +8,10 @@ $like = '';
 $a = "1";
 $num = 0;
 
+$_SESSION['token'] = uniqid(bin2hex(random_bytes(13)),true);
+$token = $_SESSION['token'];
+
+
 if(!$_SESSION['login']) {
     header("Location:https://nimotsu.refine-web.co.jp/nimotsu/login.php");
     exit;
@@ -29,7 +33,7 @@ if(isset($_POST['search'])) {
         $_POST['input3'] = 99999999999;
     }
 
-    $sql = "SELECT * FROM carry WHERE name $like $where1 ? AND number BETWEEN ? AND ?";
+    $sql = "SELECT * FROM carry WHERE name $like $where1 ? AND id BETWEEN ? AND ?";
     // $sql = "SELECT * FROM carry WHERE number BETWEEN ? AND ?";
 
     $db = getDb();
@@ -88,11 +92,13 @@ if(isset($_POST['update'])) {
 if(isset($_POST['upload'])) {
     $r = intval($_POST['po']);
     $result = userLogic::img($r);
-    // if($result) {
-
-    // }
+    header('Location:table2.php');
+    exit();
     }
 ?>
+<script>
+    const j = JSON.parse('<?php echo $j;?>');
+</script>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -123,7 +129,7 @@ if(isset($_POST['upload'])) {
                     <th>管理番号</th>
                     <th>名前</th>
                     <th>荷物の数</th>
-                    <th>画像</th>
+                    <th width="30%">画像</th>
                     <th width="15%"></th>
                 </tr>
             </thead>
@@ -137,14 +143,22 @@ if(isset($_POST['upload'])) {
                         <td><?= $row['name']?></td>
                         <td><?= $row['number']?></td>
                         <td>
-                        <?php if(!isset($_POST['upload'])){ ?>    
-                        <form method="POST" enctype="multipart/form-data">
+
+                        <?php
+                        $png = userLogic::png($row['id']);
+                        ?>
+
+                        <?php if(!$png){ ?>    
+                        <!-- <form method="POST" enctype="multipart/form-data">
                             <input type="file" name="img"><br>
                             <input type="hidden" name="po" value="<?=$row['id']?>">
                             <input type="submit" name="upload" value="送信">
-                        </form>
+                        </form> -->
                         <?php }else{ ?>
-                            <p><?= $row['id']?></p>
+                            <div class="img-center">
+                                <img class="img" src="<?=$png?>">
+                            </div>
+
                         <?php } ?>
                         </td>
                         <td><div class="ko"><form method="POST"><input type="hidden" name="r[]" value="<?=$row['id']?>"><input type="hidden" name="r[]" value="<?=$row['name']?>"><input type="hidden" name="r[]" value="<?=$row['number']?>"><input type="submit" value="変更" name="up-button"></form><form method="POST"><input type="hidden" name="s" value="<?=$row['id']?>"><input type="submit" name="delete" value="削除"></form></div></td>
@@ -158,7 +172,7 @@ if(isset($_POST['upload'])) {
         <br>
         <a href="https://nimotsu.refine-web.co.jp/nimotsu/menu.php">メニュー画面へ</a><br><br>
         <a href="https://nimotsu.refine-web.co.jp/nimotsu/login.php">ログアウト</a><br><br>
-        <a href="https://nimotsu.refine-web.co.jp/nimotsu/csv.php">csvダウンロード</a>
+        <a href="csv.php">csvダウンロード</a>
         <form method="POST" class="form3" action="register-confirm.php" enctype="multipart/form-data">
                     <br>
                     <h3>csvファイルで登録</h3><br>
@@ -194,6 +208,11 @@ if(isset($_POST['upload'])) {
                         <input type="submit" name="update" value="変更">
                         <button type="button" class="oo">キャンセル</button>
                     </div>
+                </form>
+                <form method="POST" action="image.php">
+                <input type="hidden" name="token" value="<?=$token?>">
+                    <input type="hidden" name="img" value="<?=$_POST['r'][3]?>">
+                    <input type="submit" name="x" value='画像挿入'>
                 </form>
                 
             </div>

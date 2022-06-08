@@ -10,7 +10,7 @@ function putCsv($date) {
             throw new Exception('ファイルの書き込みに失敗しました');
         }
 
-        $header = ['id','name','number'];
+        $header = ['id','name','number','img'];
         fputcsv($res,$header);
 
         forEach($date as $row) {

@@ -181,6 +181,20 @@ class userLogic {
 
     }
 
+    public static function png($id) {
+        $sql = 'SELECT img FROM carry WHERE id=?';
+        $db = getDb();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(1,e($id));
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($row['img'] == NULL) {
+            return $result = false;
+        }else{
+            return $row['img'];
+        }
+    }
+
 }
 
 
