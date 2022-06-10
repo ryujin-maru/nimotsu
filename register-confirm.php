@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'connect.php';
+require_once 'userLogic.php';
 $success = '';
 $index = 0;
 $err = [];
@@ -97,6 +98,22 @@ if(isset($_POST['up'])) {
                 $stmt = $db->prepare($sql);
                 $stmt->execute();
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                // userLogic::img($row);
+                if(is_uploaded_file($_FILES['img']['tmp_name'])){
+                    $upload = './img/'.basename($_FILES['img']['name']);
+                    move_uploaded_file($_FILES['img']['tmp_name'],$upload);
+
+                    $sql = 'UPDATE carry SET img=? WHERE id=?';
+                    $db = getDb();
+                    $stmt = $db->prepare($sql);
+                    $stmt->bindValue(1,$upload);
+                    $stmt->bindValue(2,$row['MAX(id)']);
+                    $stmt->execute();
+                    print('登録した画像：');
+                    print($_FILES['img']['name']);
+                }
+
             ?>
             <p>与えられたidは<span><?= $row["MAX(id)"]?></span>です。</p>
         </div>
@@ -135,7 +152,7 @@ if(isset($_POST['up'])) {
     <div class="a">
         <a href="https://nimotsu.refine-web.co.jp/nimotsu/register2.php">荷物登録画面</a><br>
         <a href="https://nimotsu.refine-web.co.jp/nimotsu/menu.php">メニュー画面</a><br>
-        <a href="https://nimotsu.refine-web.co.jp/nimotsu/table.php">テーブル一覧画面</a>
+        <a href="https://nimotsu.refine-web.co.jp/nimotsu/table2.php">テーブル一覧画面</a>
     </div>
     </section>
 </body>

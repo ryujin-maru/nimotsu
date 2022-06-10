@@ -157,26 +157,26 @@ class userLogic {
         if(is_uploaded_file($_FILES['img']['tmp_name'])) {
             $pathFile = $_FILES['img']['tmp_name'];
             $pathName = $_FILES['img']['name'];
-            if(pathinfo($pathName,PATHINFO_EXTENSION) != 'png') {
-                print 'エラー';
+            if(pathinfo($pathName,PATHINFO_EXTENSION) !== 'png' && pathinfo($pathName,PATHINFO_EXTENSION) !== 'jpg' && pathinfo($pathName,PATHINFO_EXTENSION) !== 'img') {
+                return $result;
             }else{
                 $uploaddir = './img/';
                 $upload = $uploaddir . basename($pathName);
                 move_uploaded_file($pathFile,$upload);
-
                 $result = true;
             }
 
-            if($result) {
+            if($result == true) {
                 $sql = 'UPDATE carry SET img=? WHERE id=?';
                 $db = getDb();
                 $stmt = $db->prepare($sql);
                 $stmt->bindValue(1,$upload);
                 $stmt->bindValue(2,e($id));
                 $stmt->execute();
+                return $result;
             }
         }else{
-            return $result = false;
+            return $result;
         }
 
     }
@@ -192,6 +192,30 @@ class userLogic {
             return $result = false;
         }else{
             return $row['img'];
+        }
+    }
+
+    public static function delete_img($id) {
+        $result = false;
+
+        $sql = 'SELECT img FROM carry WHERE id=?';
+        $db = getDb();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(1,e($id));
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!unlink($row['img'])){
+            echo '削除するファイル名がありません';
+        }
+
+        try {
+            $sql = 'UPDATE carry SET img=DEFAULT(img) WHERE id=?';
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(1,e($id));
+            $stmt->execute();
+            return $result = true;
+        }catch(PDOException $e) {
+            return $result;
         }
     }
 

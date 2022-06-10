@@ -139,12 +139,11 @@ input[name="update_name"],input[name="update_number"] {
     width: 50%;
     margin: 0 auto;
     justify-content:space-between;
-    margin-top: 20px;
 }
 
 .display {
-    width: 45%;
-    height: 17%;
+    width: 50%;
+    height: 25%;
     background: white;
     position:fixed;
     top: 35%;
@@ -181,7 +180,7 @@ input[name="update_name"],input[name="update_number"] {
 
     .display {
         width: 300px;
-        height: 150px;
+        height: 200px;
     }
 }
 

@@ -89,12 +89,16 @@ if(isset($_POST['update'])) {
     }
 }
 
-if(isset($_POST['upload'])) {
-    $r = intval($_POST['po']);
-    $result = userLogic::img($r);
-    header('Location:table2.php');
-    exit();
-    }
+// if(isset($_POST['upload'])) {
+//     $r = intval($_POST['po']);
+//     $result = userLogic::img($r);
+//     header('Location:table2.php');
+//     exit();
+//     }
+if(isset($_POST['yes2'])) {
+    $delete = userLogic::delete_img($_SESSION['s']);
+}
+
 ?>
 <script>
     const j = JSON.parse('<?php echo $j;?>');
@@ -192,6 +196,13 @@ if(isset($_POST['upload'])) {
                 </form>
                 <button class="no">いいえ</button>
             </div>
+            <p>画像を削除しますか？</p>
+            <div style="margin-top:0;" class="flex-btn">
+                <form method="POST" id="yssNo">
+                    <input type="submit" name="yes2" value="はい">
+                </form>
+                <button class="no">いいえ</button>
+            </div>
         </div>
     </section>
     <?php }else if($num == 2) { ?>
@@ -211,7 +222,7 @@ if(isset($_POST['upload'])) {
                 </form>
                 <form method="POST" action="image.php">
                 <input type="hidden" name="token" value="<?=$token?>">
-                    <input type="hidden" name="img" value="<?=$_POST['r'][3]?>">
+                    <input type="hidden" name="y" value="<?=$_POST['r'][0]?>">
                     <input type="submit" name="x" value='画像挿入'>
                 </form>
                 

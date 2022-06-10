@@ -34,6 +34,10 @@ if(isset($_POST['register_sub'])) {
         mb_convert_kana($_POST['register_number'],"n");
     }
 
+    if(pathinfo($_FILES['img']['name'],PATHINFO_EXTENSION) != 'png' && pathinfo($_FILES['img']['name'],PATHINFO_EXTENSION) != 'jpg') {
+        $err[] = 'ファイルをアップロードできませんでした。';
+    }
+
     //carryデータベースに接続して登録する
     if(!$err && $_SERVER['REQUEST_METHOD']==='POST'){
         $sql = 'INSERT INTO carry(name,number) VALUE (?,?)';
@@ -43,10 +47,11 @@ if(isset($_POST['register_sub'])) {
         $stmt->bindValue(2,htmlspecialchars($_POST['register_number']));
         $stmt->execute();
         $db = null;
+
         $_SESSION['register'] = '登録が完了しました';
         $_SESSION['number'] = 1;
         header('HTTP/1.1 307 Temporary Redirect');
-        header('Location:https://nimotsu.refine-web.co.jp/nimotsu/register-confirm.php');
+        header('Location:register-confirm.php');
         exit();
     }
 }else{
@@ -143,18 +148,20 @@ if(isset($_POST['s'])) {
                         echo '</div>';
                     }
                     ?>
-                <form method="POST" action="">
+                <form method="POST" action="" enctype="multipart/form-data">
                     <br>
                     <p>名前</p>
                     <input type="text" name="register_name" value="<?=$str?>">
                     <br><br>
                     <p>荷物の数</p>
-                    <input type="number" name="register_number" placeholder="半角数字のみ">
+                    <input type="number" name="register_number" placeholder="半角数字のみ"><br><br>
+                    <p>画像</p>
+                    <input type="file" name="img" accept="image/png,image/jpeg">
                     <br><br>
                     <input type="submit" name="register_sub" value="登録" id="sbm">
                 </form>
                     <br>
-                <form method="POST" class="form3" action="https://nimotsu.refine-web.co.jp/nimotsu/register-confirm.php" enctype="multipart/form-data">
+                <form method="POST" class="form3" action="register-confirm.php" enctype="multipart/form-data">
                     <h3>csvファイルで登録</h3><br>
                     <p class="ii">ファイルを選択してください。</p>
                     <input type="file" name="csv"><br>

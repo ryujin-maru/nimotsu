@@ -1,30 +1,31 @@
 <?php
+require_once 'userLogic.php';
 session_start();
-$err = [];
+$err = '';
+$num = 0;
 
 if(isset($_POST['token'])){
     if($_SESSION['token'] != $_POST['token']) {
         echo '不正アクセスの可能性があります。';
+        exit();
     }
+}
+
+if(isset($_POST['x'])){
+    $_SESSION['y'] = $_POST['y'];
 }
 
 if(isset($_POST['submit'])) {
-    if(is_uploaded_file($_FILES['img']['tmp_name'])) {
-        $pathFile = $_FILES['img']['tmp_name'];
-        $pathName = $_FILES['img']['name'];
-    
-        if(pathinfo($pathName,PATHINFO_EXTENSION) != 'png') {
-            $err[] = 'img,png,jpgファイルのみアップロード可能です。';
-        }else{
-            $path = './img/';
-            $myPath = $path.basename($pathName);
-
-            move_uploaded_file($pathFile,$myPath);
-            
-        }
+    $result = userLogic::img($_SESSION['y']);
+    if($result == true){
+        header('Location:table2.php');
+        exit();
+    }else{
+        $num = 1;
+        $err = '画像の挿入に失敗しました。';
     }
+    
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -39,17 +40,15 @@ if(isset($_POST['submit'])) {
 <body>
     <div class="login-box">
         <h3>挿入する画像を選択してください</h3>
-        <?php
-        if($err){
-            echo '<div style="color:red;">';
-            echo implode('<br>',$err);
-            echo '</div>';
-        }
-        ?>
+        <?php if($err){ ?>
+        <p style="color: red;"><?=$err?></p>
+        <?php } ?>
         <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="img">
+            <input type="file" name="img" accept="image/png,image/jpeg">
             <input type="submit" name="submit" value="アップロード">
         </form>
+        <br>
+        <a href="table2.php">テーブル画面へ</a>
     </div>
 </body>
 </html>
