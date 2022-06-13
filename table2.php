@@ -61,6 +61,12 @@ if(isset($_POST['delete'])) {
 }
 
 if(isset($_POST['yes'])) {
+    $img = userLogic::png($_SESSION['s']);
+            if(unlink($img)) {
+                var_dump('成功');
+            }else{
+                print('失敗');
+            }
     $ques = logic::deleteUser($_SESSION['s']);
     if($ques){
         header('Location:table2.php');
@@ -193,13 +199,6 @@ if(isset($_POST['yes2'])) {
             <div class="flex-btn">
                 <form method="POST" id="yssNo">
                     <input type="submit" name="yes" value="はい">
-                </form>
-                <button class="no">いいえ</button>
-            </div>
-            <p>画像を削除しますか？</p>
-            <div style="margin-top:0;" class="flex-btn">
-                <form method="POST" id="yssNo">
-                    <input type="submit" name="yes2" value="はい">
                 </form>
                 <button class="no">いいえ</button>
             </div>

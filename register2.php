@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'connect.php';
+require_once 'userLogic.php';
 $err = [];
 $err1 = [];
 $_SESSION['number'] = '';
@@ -84,6 +85,7 @@ if(isset($_POST['update_sub'])) {
         header('Location:https://nimotsu.refine-web.co.jp/nimotsu/register-confirm.php');
         exit();
     }
+
 }
 
 if(isset($_POST['delete_sub'])) {
@@ -116,6 +118,12 @@ if(isset($_POST['s'])) {
     $s = intval($_POST['s']);
 }else{
     $s = '';
+}
+
+if(isset($_POST['img_submit'])) {
+    $img =  userLogic::up_img($_POST['img_id']);
+    header('Location:table2.php');
+    exit();
 }
 
 ?>
@@ -184,8 +192,16 @@ if(isset($_POST['s'])) {
                     <input type="text" name="update1">
                     <p style="margin-top: 10px;">荷物の数</p>
                     <input type="number" name="update2" placeholder="半角数字のみ">
-                    <br>
+                    <br><br>
                     <input type="submit" name="update_sub" value="変更">
+                </form>
+
+                <h2>画像変更</h2>
+                <form method="POST" enctype="multipart/form-data">
+                    <p>id</p>
+                    <input type="number" name="img_id"><br>
+                    <input type="file" name="file">
+                    <input type="submit" name="img_submit" value="送信">
                 </form>
             </div>
 

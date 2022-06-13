@@ -219,7 +219,39 @@ class userLogic {
         }
     }
 
+    public static function up_img($id) {
+        $result = false;
+
+        $sql = 'SELECT * FROM carry WHERE id=?';
+        $db = getDb();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(1,$id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if($row['img'] != null) {
+            unlink($row['img']);
+        }
+
+
+        if(is_uploaded_file($_FILES['file']['tmp_name'])) {
+            $filePath = $_FILES['file']['tmp_name'];
+            $fileName = $_FILES['file']['name'];
+
+            $img = './img/';
+            $upload = $img.basename($fileName);
+
+            move_uploaded_file($filePath,$upload);
+
+            $sql = 'UPDATE carry SET img=? WHERE id=?';
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(1,e($upload));
+            $stmt->bindValue(2,e($row['id']));
+            $stmt->execute();
+            return $result = true;
+        }else{
+            return $result;
+        }
+    }
 }
-
-
 ?>

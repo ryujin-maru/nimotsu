@@ -1,6 +1,7 @@
 <?php
 require_once 'connect.php';
 require_once 'encode.php';
+require_once 'userLogic.php';
 
 class Logic {
 
@@ -15,6 +16,7 @@ class Logic {
             $stmt->bindValue(1,e($s));
             $stmt->execute();
             $result = true;
+
             return $result;
         }catch(Exception $e) {
             return false;
