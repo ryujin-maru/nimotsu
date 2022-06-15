@@ -29,6 +29,9 @@
     const form3 = document.querySelector('.form3');
     const yy = document.querySelector('.yy');
     const ii = document.querySelector('.ii');
+    const form4 = document.querySelector('.form4');
+    const img = document.querySelector('.img_id');
+    const kk = document.querySelector('.kk');
 
     window.addEventListener('DOMContentLoaded', function(){
         form.addEventListener('submit',(e) => {
@@ -69,6 +72,15 @@
                     ii.classList.add('block');
                 }else{
                     ii.classList.remove('block');
+                }
+            })
+
+            form4.addEventListener('submit',(e) => {
+                if(img.value == "") {
+                    e.preventDefault();
+                    kk.classList.add('block');
+                }else{
+                    kk.classList.remove('block');
                 }
             })
 

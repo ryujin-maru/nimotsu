@@ -25,6 +25,23 @@
 }
 
 {
-    
+    const lis = document.querySelectorAll('.li');
+    const lists = document.querySelectorAll('.list');
+    const up = document.querySelector('.fa-angle-up');
+    const down = document.querySelector('.fa-angle-down');
+
+    lis.forEach((li,index) => {
+        li.addEventListener('click',() => {
+            lists[index].classList.toggle('open');
+            up.classList.toggle('show');
+            if(up.classList.contains('show')){
+                down.style = 'display: none';
+            }else{
+                down.style = 'display: block';
+            }
+        })
+    })
+
+
 
 }

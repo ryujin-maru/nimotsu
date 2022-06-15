@@ -120,6 +120,7 @@ if(isset($_POST['yes2'])) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
     <section class="table-back">
         <h1 class="table-display">テーブル一覧画面</h1>
         <form class="form1" method="POST">

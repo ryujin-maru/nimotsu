@@ -37,7 +37,12 @@ if(isset($_POST['login-submit'])) {
             $stmt->bindValue(1,$_POST['login']);
             $stmt->execute();
             $rows = $stmt->fetch(PDO::FETCH_ASSOC);
-            $rows = password_verify($_POST['pass'],$rows['pass']);
+
+            if(!$rows) {
+            }else{
+                $rows = password_verify($_POST['pass'],$rows['pass']);
+            }
+
         }catch(PDOException $e){
 
         }
@@ -54,7 +59,7 @@ if(isset($_POST['login-submit'])) {
                 header("Location:https://nimotsu.refine-web.co.jp/nimotsu/sampleLogin.php");
                 exit();
             }else{
-                header('Location:https://nimotsu.refine-web.co.jp/nimotsu/menu.php');
+                header('Location:menu.php');
                 exit();
             }
         }
@@ -74,25 +79,37 @@ if(isset($_POST['login-submit'])) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <div class="head">
+            <p><span>⚙</span>Login</p>
+        </div>
+    </header>
     <section>
+
         <div class="login-box">
-            <h1 style="color:red">荷物管理システム</h1>
+            <div class="front">
+                <p>ログイン</p>
+            </div>
             <?php 
             if($err) {
-                echo '<div style="color: red;">';
+                echo '<div style="color: red; text-align: center">';
                 echo implode('<br>',$err);
                 echo '</div>';
             }
             ?>
-            <form method="POST">
-                <p>ログインID</p>
+            <form method="POST" class="form">
+                <p>ユーザーID</p>
                 <input type="text" name="login">
                 <p>パスワード</p>
                 <input type="text" name="pass">
                 <br>
-                <input type="submit" name="login-submit" value="ログイン">
+                <div class="inIn">
+                    <input type="submit" name="login-submit" value="ログイン">
+                </div>
             </form>
-            <a href="pre_register.php">新規ログイン</a>
+            <div style="text-align: center; margin-bottom:10px;">
+                <a href="pre_register.php">新規ログイン</a>
+            </div>
         </div>
     </section>
 </body>

@@ -121,6 +121,10 @@ if(isset($_POST['s'])) {
 }
 
 if(isset($_POST['img_submit'])) {
+    if(!is_uploaded_file($_FILES['file']['tmp_name'])) {
+        userLogic::delete_img($_POST['img_id']);
+    }
+
     $img =  userLogic::up_img($_POST['img_id']);
     header('Location:table2.php');
     exit();
@@ -143,6 +147,7 @@ if(isset($_POST['img_submit'])) {
         <form>
             <input type="radio" name="select" value="登録" checked>登録
             <input type="radio" name="select" value="変更">変更
+            <input type="radio" name="select" value="画像変更">画像変更
             <input type="radio" name="select" value="削除">削除
         </form>
 
@@ -184,6 +189,7 @@ if(isset($_POST['img_submit'])) {
                         <P>名前を正しく入力してください</P>
                         <p>荷物の数を正しく入力してください</p>
                     </div>
+                    
                 <form method="POST" id="userInfo">
                     <br>
                     <p>id</p>
@@ -195,11 +201,13 @@ if(isset($_POST['img_submit'])) {
                     <br><br>
                     <input type="submit" name="update_sub" value="変更">
                 </form>
+            </div>
 
-                <h2>画像変更</h2>
-                <form method="POST" enctype="multipart/form-data">
+            <div class="q fade">
+                <div class="kk">idを正しく入力してください</div>
+                <form method="POST" enctype="multipart/form-data" class="form4">
                     <p>id</p>
-                    <input type="number" name="img_id"><br>
+                    <input type="number" name="img_id" class="img_id"><br>
                     <input type="file" name="file">
                     <input type="submit" name="img_submit" value="送信">
                 </form>
