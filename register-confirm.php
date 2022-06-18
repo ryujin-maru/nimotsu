@@ -6,7 +6,7 @@ $success = '';
 $index = 0;
 $err = [];
 if(!$_SESSION['login']) {
-    header("Location:https://nimotsu.refine-web.co.jp/nimotsu/login.php");
+    header("Location:login.php");
     exit;
 }
 
@@ -70,7 +70,7 @@ if(isset($_POST['up'])) {
         unlink($filePath);
         fclose($file);
     }
-    header('Location:table2.php');
+    header('Location:table3.php');
     exit();
 }
 
@@ -83,77 +83,111 @@ if(isset($_POST['up'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <section class="register-back">
-        <?php if($_SESSION['number'] === 1){?>
-        <div class="contact">
-            <h2>登録が完了しました。</h2>
-            <p>登録した名前： <span><?= $_POST['register_name'] ?></span></p>
-            <p>登録した荷物の数： <span><?= $_POST['register_number'] ?></span></p>
-            <?php
-                $sql = 'SELECT MAX(id) FROM carry';
-                $db = getDb();
-                $stmt = $db->prepare($sql);
-                $stmt->execute();
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                // userLogic::img($row);
-                if(is_uploaded_file($_FILES['img']['tmp_name'])){
-                    $upload = './img/'.basename($_FILES['img']['name']);
-                    move_uploaded_file($_FILES['img']['tmp_name'],$upload);
+    <header>
+        <div class="head">
+            <p><span>⚙</span>登録確認画面</p>
+        </div>
+    </header>
 
-                    $sql = 'UPDATE carry SET img=? WHERE id=?';
+    <div class="flex-flex y">
+        <div class="tmp">
+            <ul>
+                <a href="menu.php"><li><i class="fa-solid fa-house-chimney"></i>TOP</li></a>
+                <div class="li"><li><i class="fa-solid fa-user"></i>荷物登録画面<i class="fa-solid fa-angle-down"></i><i class="fa-solid fa-angle-up"></i></li>
+                <div class="list">
+                    <a href="register2.php"><p><i class="fa-solid fa-caret-right"></i>new 荷物登録画面</p></a>
+                    <a href="register.php"><p><i class="fa-solid fa-caret-right"></i>old 荷物登録画面</p></a>
+                </div>
+                </div>
+                <a href="table3.php"><li><i class="fa-solid fa-user"></i>テーブル一覧画面</li></a>
+                <a href="second.php"><li><i class="fa-solid fa-user"></i>二段階認証設定</li></a>
+                <a href="login.php"><li><i class="fa-solid fa-arrow-left"></i>ログアウト</li></a>
+            </ul>
+        </div>
+
+        <div class="main-right">
+            <div class="top1">
+                <p><i class="fa-solid fa-address-card"></i>CONFIRM</p>
+            </div>
+            <section class="register-bk">
+            <div class="top2">
+            <?php if($_SESSION['number'] === 1){?>
+            <div class="contact">
+                <h2>登録が完了しました。</h2>
+                <p>登録した名前： <span><?= $_POST['register_name'] ?></span></p>
+                <p>登録した荷物の数： <span><?= $_POST['register_number'] ?></span></p>
+                <?php
+                    $sql = 'SELECT MAX(id) FROM carry';
                     $db = getDb();
                     $stmt = $db->prepare($sql);
-                    $stmt->bindValue(1,$upload);
-                    $stmt->bindValue(2,$row['MAX(id)']);
                     $stmt->execute();
-                    print('登録した画像：');
-                    print($_FILES['img']['name']);
-                }
-
-            ?>
-            <p>与えられたidは<span><?= $row["MAX(id)"]?></span>です。</p>
-        </div>
-        <?php }else if($_SESSION['number'] === 2){ ?>
-            <?php if($_SESSION['id']) { ?>
-                <h3><?= $_SESSION['id'] ?></h3>
-            <?php }else{ ?>
-                <h2>変更が完了しました。</h2>
-                <p>id: <?= $_SESSION['old']['id'] ?></p>
-                <p style="margin-top: 15px;">変更した名前</p>
-                <p>old:　<?= $_SESSION['old']['name'] ?> --> new:　<span style="color: red"><?= $_POST['update1'] ?></span></p>
-                <p style="margin-top: 15px;">変更した荷物の数:</p>
-                <p>old:　<?= $_SESSION['old']['number'] ?> --> new:　<span style="color: red"><?= $_POST['update2'] ?></span></p>
-            <?php } ?>
-        <?php }else if($_SESSION['number'] === 3) { ?>
-        <?PHP if($_SESSION['delete_id']) { ?>
-                <h3><?= $_SESSION['delete_id'] ?></h3>
-        <?php }else{ ?>
-            <h2>削除が完了しました。</h2>
-            <p>削除したid:　<span style="color: red;"><?= $_POST['delete_id'] ?></span></p>
-        <?php } ?>
-        <?php }else{ ?>
-            <?php if($err){ ?>
-                <?php
-                echo '<div style="color: red;">';
-                echo implode('<br>',$err);
-                echo '</div>';
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                    // userLogic::img($row);
+                    if(is_uploaded_file($_FILES['img']['tmp_name'])){
+                        $upload = './img/'.basename($_FILES['img']['name']);
+                        move_uploaded_file($_FILES['img']['tmp_name'],$upload);
+    
+                        $sql = 'UPDATE carry SET img=? WHERE id=?';
+                        $db = getDb();
+                        $stmt = $db->prepare($sql);
+                        $stmt->bindValue(1,$upload);
+                        $stmt->bindValue(2,$row['MAX(id)']);
+                        $stmt->execute();
+                        print('登録した画像：');
+                        print($_FILES['img']['name']);
+                    }
+    
                 ?>
-            <?php }else if($success) { ?>
-                <h2><?= $success ?></h2>
+                <p>与えられたidは<span><?= $row["MAX(id)"]?></span>です。</p>
+            </div>
+            <?php }else if($_SESSION['number'] === 2){ ?>
+                <?php if($_SESSION['id']) { ?>
+                    <h3><?= $_SESSION['id'] ?></h3>
+                <?php }else{ ?>
+                    <h2>変更が完了しました。</h2>
+                    <p>id: <?= $_SESSION['old']['id'] ?></p>
+                    <p style="margin-top: 15px;">変更した名前</p>
+                    <p>old:　<?= $_SESSION['old']['name'] ?> --> new:　<span style="color: red"><?= $_POST['update1'] ?></span></p>
+                    <p style="margin-top: 15px;">変更した荷物の数:</p>
+                    <p>old:　<?= $_SESSION['old']['number'] ?> --> new:　<span style="color: red"><?= $_POST['update2'] ?></span></p>
+                <?php } ?>
+            <?php }else if($_SESSION['number'] === 3) { ?>
+            <?PHP if($_SESSION['delete_id']) { ?>
+                    <h3><?= $_SESSION['delete_id'] ?></h3>
+            <?php }else{ ?>
+                <h2>削除が完了しました。</h2>
+                <p style="margin-top: 10px;">削除したid:　<span style="color: red;"><?= $_POST['delete_id'] ?></span></p>
             <?php } ?>
-
-        <?php } ?>
-
-
-    <div class="a">
-        <a href="https://nimotsu.refine-web.co.jp/nimotsu/register2.php">荷物登録画面</a><br>
-        <a href="https://nimotsu.refine-web.co.jp/nimotsu/menu.php">メニュー画面</a><br>
-        <a href="https://nimotsu.refine-web.co.jp/nimotsu/table2.php">テーブル一覧画面</a>
+            <?php }else{ ?>
+                <?php if($err){ ?>
+                    <?php
+                    echo '<div style="color: red;">';
+                    echo implode('<br>',$err);
+                    echo '</div>';
+                    ?>
+                <?php }else if($success) { ?>
+                    <h2><?= $success ?></h2>
+                <?php } ?>
+    
+            <?php } ?>
+        </div>
+        <div class="a">
+        <a href="register2.php">荷物登録画面</a><br>
+        <a href="menu.php">メニュー画面</a><br>
+        <a href="table3.php">テーブル一覧画面</a>
     </div>
-    </section>
+    </div>
+
+
+    </div>
+
+
+<script src="sub.js"></script>
 </body>
 </html>

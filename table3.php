@@ -13,7 +13,7 @@ $token = $_SESSION['token'];
 
 
 if(!$_SESSION['login']) {
-    header("Location:https://nimotsu.refine-web.co.jp/nimotsu/login.php");
+    header("Location:login.php");
     exit;
 }
 
@@ -69,7 +69,7 @@ if(isset($_POST['yes'])) {
             }
     $ques = logic::deleteUser($_SESSION['s']);
     if($ques){
-        header('Location:table2.php');
+        header('Location:table3.php');
         exit();
     }
 }
@@ -89,7 +89,7 @@ if(isset($_POST['update'])) {
     var_dump($post1);
     $up = logic::updateUser($post1,$post2,$post3);
     if($up) {
-        header('Location:table2.php');
+        header('Location:table3.php');
     }else{
         print('失敗');
     }
@@ -127,7 +127,7 @@ if(isset($_POST['yes2'])) {
         </div>
     </header>
 
-    <div class="flex-flex">
+    <div class="flex-flex y">
         <div class="tmp">
             <ul>
                 <a href="menu.php"><li><i class="fa-solid fa-house-chimney"></i>TOP</li></a>
@@ -137,7 +137,7 @@ if(isset($_POST['yes2'])) {
                     <a href="register.php"><p><i class="fa-solid fa-caret-right"></i>old 荷物登録画面</p></a>
                 </div>
                 </div>
-                <a href="table2.php"><li><i class="fa-solid fa-user"></i>テーブル一覧画面</li></a>
+                <a href="table3.php"><li><i class="fa-solid fa-user"></i>テーブル一覧画面</li></a>
                 <a href="second.php"><li><i class="fa-solid fa-user"></i>二段階認証設定</li></a>
                 <a href="login.php"><li><i class="fa-solid fa-arrow-left"></i>ログアウト</li></a>
             </ul>
@@ -163,11 +163,97 @@ if(isset($_POST['yes2'])) {
                 </div>
                 </div>
                 </form>
-            </div>
-            
+                <div>
+                    <a class="dl" href="csv.php"><i class="fa-solid fa-check"></i>ダウンロード</a>
+                </div>
+
+
+            <table class="main-table">
+            <thead>
+                <tr>
+                    <th width="120px">管理番号</th>
+                    <th width="200px">名前</th>
+                    <th width="120px">荷物の数</th>
+                    <th width="200px">画像</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- レコードの数だけループを回してテーブルを表示 -->
+                <?PHP
+                foreach($result as $row) {
+                    ?>
+                    <tr>
+                        <td><?= $row['id']?></td>
+                        <td><?= $row['name']?></td>
+                        <td><?= $row['number']?></td>
+                        <td class="png">
+
+                        <?php
+                        $png = userLogic::png($row['id']);
+                        ?>
+
+                        <?php if(!$png){ ?>    
+                        <!-- <form method="POST" enctype="multipart/form-data">
+                            <input type="file" name="img"><br>
+                            <input type="hidden" name="po" value="<?=$row['id']?>">
+                            <input type="submit" name="upload" value="送信">
+                        </form> -->
+                        <?php }else{ ?>
+                            <div class="img-center">
+                                <img class="img" src="<?=$png?>">
+                            </div>
+
+                        <?php } ?>
+                        </td>
+                        <td><div class="ko"><form method="POST"><input type="hidden" name="r[]" value="<?=$row['id']?>"><input type="hidden" name="r[]" value="<?=$row['name']?>"><input type="hidden" name="r[]" value="<?=$row['number']?>"><input style="margin-right:15px;" type="submit" value="変更" name="up-button"></form><form method="POST"><input type="hidden" name="s" value="<?=$row['id']?>"><input type="submit" name="delete" value="削除"></form></div></td>
+                    </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+
         </div>
 
     </div>
+
+    <?php if($num == 1){ ?>
+    <section>
+        <div class="display">
+            <p>管理番号<span style="color: red;"><?=$_POST['s']?></span>を削除しますか？</p>
+            <div class="flex-btn">
+                <form method="POST" id="yssNo">
+                    <input type="submit" name="yes" value="はい">
+                </form>
+                <button class="no">いいえ</button>
+            </div>
+        </div>
+    </section>
+    <?php }else if($num == 2) { ?>
+        <section>
+            <div class="display2">
+                <form method=POST>
+                    <p class="op">管理番号</p>
+                    <input type="number" name="up-id" value="<?= $_POST['r'][0] ?>">
+                    <p>名前</p>
+                    <input type="text" name="up-name" value="<?= $_POST['r'][1] ?>">
+                    <p>荷物の数</p>
+                    <input type="number" name="up-num" value="<?= $_POST['r'][2] ?>"><br>
+                    <div class="uu">
+                        <input type="submit" name="update" value="変更">
+                        <button type="button" class="oo">キャンセル</button>
+                    </div>
+                </form>
+                <form method="POST" action="image.php">
+                <input type="hidden" name="token" value="<?=$token?>">
+                    <input type="hidden" name="y" value="<?=$_POST['r'][0]?>">
+                    <input type="submit" name="x" value='画像挿入'>
+                </form>
+                
+            </div>
+        </section>
+    <?php } ?>
 
 <script src="sub.js"></script>
 </body>

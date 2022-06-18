@@ -7,11 +7,12 @@
 }
 
 html,body,body>div{
-    height: 100%;
+    height: 100vh;
 }
 
 body {
     background: #fafafa;
+    height: 100vh;
 }
 
 .head {
@@ -57,6 +58,7 @@ body {
 /* .form {
     text-align: center;
 } */
+
 
 .form p {
     text-align: left;
@@ -175,6 +177,8 @@ input[name="login-submit"] {
 
 .main-right {
     width: 100%;
+    height: 100%;
+    border-left: 1px solid #c8c8cb;
 }
 
 .top1 {
@@ -191,7 +195,7 @@ input[name="login-submit"] {
 
 .top2 {
     width: 95%;
-    height: 400px;
+    min-height: 400px;
     margin: 0 auto;
     border-bottom: 1px solid #c8c8cb;
 }
@@ -206,7 +210,7 @@ input[name="login-submit"] {
     margin-top: 30px;
 }
 
-.top2 span {
+.top2.span {
     border: 1px solid #c8c8cb;
     padding: 10px 20px;
     margin-left: 30%;
@@ -235,7 +239,15 @@ input[name="count"] {
 
 .flex-flex {
     display: flex;
+    align-items:stretch;
+    
+    /* height: auto; */
+    min-height: 100%;
 }
+
+/* .flex-flex.y {
+    height: auto;
+} */
 
 .menu {
     text-align: center;
@@ -303,7 +315,9 @@ input[name="count"] {
 .main-table {
     width: 95%;
     margin: 0 auto;
-    margin-top: 10px;
+    margin-top: 100px;
+    margin-bottom: 80px;
+    height: auto;
 }
 
 .btn-flex {
@@ -472,7 +486,7 @@ table button {
 
 .ko {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 90%;
     margin: 0 auto;
     flex-wrap: wrap;
@@ -502,7 +516,7 @@ input[name="yes"] {
 
 .display2 {
     width: 50%;
-    height: 30%;
+    height: 35%;
     background: white;
     position:fixed;
     top: 35%;
@@ -517,13 +531,13 @@ input[name="yes"] {
 }
 
 .img {
-    width: 80%;
-    height: 80%;
+    width: 100px;
+    height: 110px;
 }
 
 .img-center {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     text-align: center;
 }
 
@@ -556,4 +570,172 @@ input[name="search"] {
     margin-left: 10px;
     background-color: #556665;
     color: white;
+}
+
+table th {
+    text-align: left;
+    /* font-weight: normal; */
+    border-bottom: 2px solid #ccc;
+    color: #428bca;
+    font-size: 18px;
+}
+
+table td {
+    border-bottom: 1px solid #ccc;
+    height: 120px;
+}
+
+/* table tr {
+    height: 120px;
+} */
+
+img.img {
+    display: inline-block;
+    vertical-align:middle;
+}
+
+.top2 .fa-check {
+    font-size: 20px;
+    margin-right: 0;
+    margin-top: 25px;
+    color: white;
+}
+
+.top2 a {
+    text-decoration: none;
+    border: 1px solid black;
+    margin-left: 3%;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #414959;
+    color: white;
+}
+
+.top2 a:hover {
+    opacity: .8; 
+}
+
+.display2 input {
+    border-radius: 4px;
+    border: 1px solid #a9a9a9;
+    padding: 6px 12px;
+}
+
+.display2 p {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.display2 input[type='submit'] {
+    margin-top: 15px;
+}
+
+.oo {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #a9a9a9;
+}
+
+input[name="yes"],.no{
+    border-radius:  4px;
+    border: 1px solid #a9a9a9;
+    margin-top: 10px;
+}
+
+.ko input[type="submit"] {
+    border-radius: 4px;
+    border: 1px solid #a9a9a9;
+    padding: 2px 4px;
+    cursor: pointer;
+}
+
+.ko input[type="submit"]:hover {
+    opacity: .8;
+}
+
+input[type="submit"],input[type="button"],button {
+    cursor: pointer;
+}
+
+input[type="submit"]:hover,input[type="button"]:hover,button:hover {
+    opacity: .7;
+}
+
+.check {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.q {
+    display: flex;
+    margin-top: 20px;
+}
+
+.okok {
+    width: 40%;
+    border: 1px solid #ccc;
+    border-radius:  4px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.noknok {
+    width: 40%;
+    border: 1px solid #ccc;
+    margin-left: 5%;
+    border-radius:  4px;
+    height: 200px;
+    text-align: center;
+}
+
+.ok1 {
+    border-bottom: 1px solid #a9a9a9;
+    padding: 10px 0;
+    padding-left: 10px;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #efefef), color-stop(1, #fafafa));
+}
+
+.nok1 {
+    border-bottom: 1px solid #a9a9a9;
+    padding: 10px 0;
+    padding-left: 10px;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #efefef), color-stop(1, #fafafa));
+}
+
+input[name="register_name"],input[name="register_number"],input[name="update_id"],input[name="update1"],input[name="update2"],input[name="img_id"],input[name="delete_id"] {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+}
+
+input[name="img"] {
+    padding: 4px 8px;
+}
+
+input[name="register_sub"],input[name="up"],input[name="update_sub"],input[name="img_submit"],input[name="delete_sub"] {
+    text-decoration: none;
+    border: 1px solid black;
+    margin-left: 3%;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #414959;
+    color: white;
+    margin: 10px 0;
+}
+
+.okok form p {
+    margin-bottom:5px;
+}
+
+.q.del {
+    justify-content: center;
+}
+
+.register-bk {
+    text-align: center;
+    margin-top: 30px;
 }

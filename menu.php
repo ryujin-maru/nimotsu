@@ -52,7 +52,7 @@ if(isset($_POST['count'])) {
                     <a href="register.php"><p><i class="fa-solid fa-caret-right"></i>old 荷物登録画面</p></a>
                 </div>
                 </div>
-                <a href="table2.php"><li><i class="fa-solid fa-user"></i>テーブル一覧画面</li></a>
+                <a href="table3.php"><li><i class="fa-solid fa-user"></i>テーブル一覧画面</li></a>
                 <a href="second.php"><li><i class="fa-solid fa-user"></i>二段階認証設定</li></a>
                 <a href="login.php"><li><i class="fa-solid fa-arrow-left"></i>ログアウト</li></a>
             </ul>
@@ -69,7 +69,7 @@ if(isset($_POST['count'])) {
                 <p class="let"><i class="fa-solid fa-comment"></i>荷物の数の合計を表示</p>
 
                 <p style="margin-top: 40px; font-size: 25px;">現在の荷物の数は・・・</p>
-                <p style="margin-top: 15px; font-size: 25px;"><span style="font-size: 25px; margin-right:10px;"><?= $count ?></span>個です。</p>
+                <p style="margin-top: 15px; font-size: 25px;"><span class="span" style="font-size: 25px; margin-right:10px;"><?= $count ?></span>個です。</p>
 
                 <form method="POST">
                 <input type="submit" name="count" value="確認">
