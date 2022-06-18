@@ -5,7 +5,7 @@ session_start();
 
 $result = userLogic::flag($_SESSION['user']);
 if(!$result) {
-    header('Location:https://nimotsu.refine-web.co.jp/nimotsu/lift.php');
+    header('Location:lift.php');
     exit();
 }else{
     $ga = new PHPGangsta_GoogleAuthenticator();
@@ -19,7 +19,7 @@ if(!$result) {
         userLogic::second($secret,$qrCodeUrl,$_SESSION['user']);
         $_SESSION['qr'] = $qrCodeUrl;
         header('HTTP/1.1 307 Temporary Redirect');
-        header('Location:https://nimotsu.refine-web.co.jp/nimotsu/qr.php');
+        header('Location:qr.php');
         exit();
     }
 }
@@ -40,7 +40,7 @@ if(!$result) {
 <body>
     <header>
         <div class="head">
-            <p><span>⚙</span>荷物登録画面</p>
+            <p><span>⚙</span>二段階認証設定</p>
         </div>
     </header>
 
@@ -65,6 +65,17 @@ if(!$result) {
                 <p><i class="fa-solid fa-lock"></i>SECURITY</p>
             </div>
 
+            <div class="top2">
+                <div class="ij">
+                    <form method="post">
+                    <p style="color: red; margin-bottom: 20px;">二段階認証を設定しますか？</p>
+                    <input type="submit" name="second" value="YES">
+    
+                    <button class="no"><a class="ini" href="menu.php">NO</a></button>
+                </div>
+        </form>
+            </div>
+
 
         </div>
 
@@ -79,5 +90,6 @@ if(!$result) {
             <a href="menu.php"><input type="button" name="no" value="NO"></a>
         </form>
     </div> -->
+<script src="sub.js"></script>
 </body>
 </html>

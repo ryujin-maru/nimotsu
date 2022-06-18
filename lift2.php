@@ -5,7 +5,7 @@ if(isset($_POST['yes'])) {
     $result = userLogic::lift($_SESSION['user']);
     
     if($result) {
-        header('Location:https://nimotsu.refine-web.co.jp/nimotsu/login.php');
+        header('Location:login.php');
         exit();
     }else{
         print('失敗');

@@ -739,3 +739,64 @@ input[name="register_sub"],input[name="up"],input[name="update_sub"],input[name=
     text-align: center;
     margin-top: 30px;
 }
+
+.ij {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.top2 .ini {
+    padding: initial;
+    border: initial;
+    width: 0;
+    height: 0;
+    background-color: initial;
+    color: black;
+}
+
+.top2 .ini:hover {
+    opacity: initial;
+}
+
+input[name="second"],.no{
+    padding: 8px 16px;
+    background-color: #dcdcdc;
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.qr1 {
+    text-align: center;
+}
+
+.qr1 p {
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+.qr1 img {
+    margin-bottom: 50px;
+}
+
+.qr .a {
+    margin-left: 0;
+}
+
+.nin2 {
+    text-align: center;
+}
+
+.nin2 h1 {
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+.nin2 p {
+    margin-bottom: 20px;
+}
+
+button[name="send"] {
+    margin-top: 20px;
+}
+
