@@ -90,7 +90,7 @@ if(isset($_POST['up'])) {
 
     <header>
         <div class="head">
-            <p><span>⚙</span>登録確認画面</p>
+            <p><span>⚙</span>二段階認証設定</p>
         </div>
     </header>
 
@@ -112,7 +112,7 @@ if(isset($_POST['up'])) {
 
         <div class="main-right">
             <div class="top1">
-                <p><i class="fa-solid fa-address-card"></i>CONFIRM</p>
+                <p><i class="fa-solid fa-clipboard-list"></i>CONFIRM</p>
             </div>
             <section class="register-bk">
             <div class="top2">
