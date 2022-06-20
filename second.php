@@ -3,6 +3,11 @@ require_once 'GoogleAuthenticator.php';
 require_once 'userLogic.php';
 session_start();
 
+if(!$_SESSION['login']) {
+    header("Location:login.php");
+    exit;
+}
+
 $result = userLogic::flag($_SESSION['user']);
 if(!$result) {
     header('Location:lift.php');

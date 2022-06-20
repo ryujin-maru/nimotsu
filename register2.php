@@ -211,7 +211,7 @@ if(isset($_POST['img_submit'])) {
                         <form method="POST" class="form3" action="register-confirm.php" enctype="multipart/form-data">
                             <p class="nok1">csvファイルで登録</p><br>
                             <p class="ii">ファイルを選択してください。</p>
-                            <input type="file" name="csv"><br><br>
+                            <input type="file" name="csv" accept="text/csv"><br><br>
                             <input type="submit" name="up" value="アップロード">
                         </form>
                     </div>

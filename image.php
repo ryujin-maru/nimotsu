@@ -4,12 +4,11 @@ session_start();
 $err = '';
 $num = 0;
 
-if(isset($_POST['token'])){
-    if($_SESSION['token'] != $_POST['token']) {
-        echo '不正アクセスの可能性があります。';
-        exit();
-    }
+if($_SESSION['token'] != $_POST['token'] || !isset($_POST['token'])) {
+    echo '不正アクセスの可能性があります。';
+    exit();
 }
+
 
 if(isset($_POST['x'])){
     $_SESSION['y'] = $_POST['y'];

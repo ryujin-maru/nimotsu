@@ -6,13 +6,13 @@
     color: #444;
 }
 
-html,body,body>div{
+html,body>div{
     height: 100vh;
 }
 
 body {
     background: #fafafa;
-    height: 100vh;
+    height: 100%;
 }
 
 .head {
@@ -177,6 +177,7 @@ input[name="login-submit"] {
 
 .main-right {
     width: 100%;
+    min-height: 100%;
     height: 100%;
     border-left: 1px solid #c8c8cb;
 }
@@ -196,6 +197,8 @@ input[name="login-submit"] {
 .top2 {
     width: 95%;
     min-height: 400px;
+    /* height: auto;
+    height: 100%; */
     margin: 0 auto;
     border-bottom: 1px solid #c8c8cb;
 }
@@ -240,9 +243,11 @@ input[name="count"] {
 .flex-flex {
     display: flex;
     align-items:stretch;
-    
-    /* height: auto; */
+
+    /* height: 100vh; */
     min-height: 100%;
+    /* height: auto; */
+
 }
 
 /* .flex-flex.y {
@@ -315,9 +320,8 @@ input[name="count"] {
 .main-table {
     width: 95%;
     margin: 0 auto;
-    margin-top: 100px;
-    margin-bottom: 80px;
-    height: auto;
+    /* height: auto; */
+    position: relative;
 }
 
 .btn-flex {
@@ -409,12 +413,12 @@ input[name="update_name"],input[name="update_number"] {
     }
 
     .flex-btn {
-        width: 100px;
+        width: 150px;
     }
 
     .display {
         width: 300px;
-        height: 100px;
+        height:100px;
     }
 }
 
@@ -506,13 +510,14 @@ table button {
     margin-top: 40px;
 }
 
-.flex-btn button {
+/* .flex-btn button {
     height: 24px;
-}
 
-input[name="yes"] {
+} */
+
+/* input[name="yes"] {
     width: 44px;
-}
+} */
 
 .display2 {
     width: 50%;
@@ -573,11 +578,13 @@ input[name="search"] {
 }
 
 table th {
-    text-align: left;
+    text-align: center;
     /* font-weight: normal; */
     border-bottom: 2px solid #ccc;
     color: #428bca;
     font-size: 18px;
+    position:sticky;
+    top: 0;
 }
 
 table td {
@@ -758,7 +765,7 @@ input[name="register_sub"],input[name="up"],input[name="update_sub"],input[name=
     opacity: initial;
 }
 
-input[name="second"],.no{
+input[name="second"],.no,input[name="yes"]{
     padding: 8px 16px;
     background-color: #dcdcdc;
     color: black;
@@ -798,5 +805,62 @@ input[name="second"],.no{
 
 button[name="send"] {
     margin-top: 20px;
+}
+
+.csv {
+    border: 1px solid #778899;
+    margin-left: 3%;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #778899;
+    color: white;
+}
+
+.display3 {
+    position:fixed;
+    top:30%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 300px;
+    text-align: center;
+    background-color: white;
+    opacity: .9;
+    display: none;
+}
+
+.display3.fadeIn {
+    display: block;
+}
+
+.form3.fo {
+    margin-top: 50px;
+}
+
+input[name="up"] {
+    margin-top: 40px;
+}
+
+.fa-xmark {
+    float: right;
+    padding: 4px 8px;
+    font-size: 23px;
+    margin-top: 10px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.scroll {
+    overflow: scroll;
+}
+
+.ioi {
+    margin-bottom: 100px;
+}
+
+thead th {
+    background-color: #fafafa;
 }
 

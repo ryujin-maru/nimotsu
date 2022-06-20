@@ -163,11 +163,13 @@ if(isset($_POST['yes2'])) {
                 </div>
                 </div>
                 </form>
-                <div>
+                <div class="ioi">
                     <a class="dl" href="csv.php"><i class="fa-solid fa-check"></i>ダウンロード</a>
+
+                    <button class="csv">csvファイルで登録</button>
                 </div>
 
-
+            <div class="scroll">
             <table class="main-table">
             <thead>
                 <tr>
@@ -213,6 +215,7 @@ if(isset($_POST['yes2'])) {
                 ?>
             </tbody>
         </table>
+        </div>
 
         </div>
 
@@ -254,6 +257,18 @@ if(isset($_POST['yes2'])) {
             </div>
         </section>
     <?php } ?>
+
+    <div class="display3">
+        <i class="fa-solid fa-xmark"></i>
+        <form method="POST" class="form3 fo" action="register-confirm.php" enctype="multipart/form-data">
+            <br>
+            <h3>csvファイルで登録</h3><br>
+            <p class="ii">ファイルを選択してください。</p>
+            <input type="file" name="csv" accept="text/csv"><br>
+            <input type="submit" name="up" value="アップロード">
+        </form>
+
+    </div>
 
 <script src="sub.js"></script>
 </body>
