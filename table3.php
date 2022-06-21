@@ -8,8 +8,8 @@ $like = '';
 $a = "1";
 $num = 0;
 
-$_SESSION['token'] = uniqid(bin2hex(random_bytes(13)),true);
-$token = $_SESSION['token'];
+$token = uniqid(bin2hex(random_bytes(13)),true);
+
 
 
 if(!$_SESSION['login']) {
@@ -67,7 +67,7 @@ if(isset($_POST['yes'])) {
             }else{
                 print('失敗');
             }
-    $ques = logic::deleteUser($_SESSION['s']);
+    $ques = logic::deleteUser($_SESSION['s'],$_POST['token']);
     if($ques){
         header('Location:table3.php');
         exit();
@@ -86,14 +86,18 @@ if(isset($_POST['update'])) {
     $post1 = intval($_POST['up-id']);
     $post2 = strval($_POST['up-name']);
     $post3 = intval($_POST['up-num']);
-    var_dump($post1);
-    $up = logic::updateUser($post1,$post2,$post3);
+    $up = logic::updateUser($post1,$post2,$post3,$_POST['token']);
+    
     if($up) {
-        header('Location:table3.php');
+
     }else{
         print('失敗');
     }
 }
+
+// echo $token;
+// echo '<br>';
+// echo $_SESSION['token'];
 
 // if(isset($_POST['upload'])) {
 //     $r = intval($_POST['po']);
@@ -105,6 +109,7 @@ if(isset($_POST['yes2'])) {
     $delete = userLogic::delete_img($_SESSION['s']);
 }
 
+$_SESSION['token'] = $token;
 ?>
 <script>
     const j = JSON.parse('<?php echo $j;?>');
@@ -227,6 +232,7 @@ if(isset($_POST['yes2'])) {
             <p>管理番号<span style="color: red;"><?=$_POST['s']?></span>を削除しますか？</p>
             <div class="flex-btn">
                 <form method="POST" id="yssNo">
+                    <input type="hidden" name="token" value="<?=$token?>">
                     <input type="submit" name="yes" value="はい">
                 </form>
                 <button class="no">いいえ</button>
@@ -245,6 +251,7 @@ if(isset($_POST['yes2'])) {
                     <input type="number" name="up-num" value="<?= $_POST['r'][2] ?>"><br>
                     <div class="uu">
                         <input type="submit" name="update" value="変更">
+                        <input type="hidden" name="token" value="<?=$token?>">
                         <button type="button" class="oo">キャンセル</button>
                     </div>
                 </form>

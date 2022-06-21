@@ -8,6 +8,9 @@ if(!$_SESSION['login']) {
     exit;
 }
 
+$token = uniqid(bin2hex(random_bytes(13)),true);
+
+
 $result = userLogic::flag($_SESSION['user']);
 if(!$result) {
     header('Location:lift.php');
@@ -29,7 +32,7 @@ if(!$result) {
     }
 }
 
-
+$_SESSION['token'] = $token;
 ?>
 
 <!DOCTYPE html>
@@ -72,13 +75,13 @@ if(!$result) {
 
             <div class="top2">
                 <div class="ij">
-                    <form method="post">
+                    <form method="post" action="qr.php">
                     <p style="color: red; margin-bottom: 20px;">二段階認証を設定しますか？</p>
+                    <input type="hidden" name="token" value="<?=$token?>">
                     <input type="submit" name="second" value="YES">
-    
                     <button class="no"><a class="ini" href="menu.php">NO</a></button>
                 </div>
-        </form>
+                    </form>
             </div>
 
 

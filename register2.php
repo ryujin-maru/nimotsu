@@ -126,7 +126,7 @@ if(isset($_POST['img_submit'])) {
     }
 
     $img =  userLogic::up_img($_POST['img_id']);
-    header('Location:table2.php');
+    header('Location:table3.php');
     exit();
 }
 

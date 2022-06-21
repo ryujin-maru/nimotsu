@@ -117,7 +117,7 @@ class userLogic {
     }
 
     public static function second($secret,$q,$u) {
-        $sql = 'UPDATE free SET flag=0,skey=?,qr=? WHERE name=?';
+        $sql = 'UPDATE free SET skey=?,qr=? WHERE name=?';
         $db = getDb();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(1,e($secret));
@@ -252,6 +252,14 @@ class userLogic {
         }else{
             return $result;
         }
+    }
+
+    public static function flag0($user) {
+        $sql = 'UPDATE free SET flag=0 WHERE name=?';
+        $db = getDb();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(1,e($user));
+        $stmt->execute();
     }
 }
 ?>

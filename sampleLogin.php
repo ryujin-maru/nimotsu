@@ -13,6 +13,9 @@ if(isset($_POST['send'])){
     $checkResult = $ga->verifyCode($result['skey'], $_POST['gacode'], 2);
     if ($checkResult) {
     $_SESSION['login'] = true;
+    
+    $result = userLogic::flag0($_SESSION['user']);
+
     header('Location:menu.php');
     exit();
     } else {

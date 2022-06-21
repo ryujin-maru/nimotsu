@@ -5,8 +5,13 @@ require_once 'userLogic.php';
 
 class Logic {
 
-    public static function deleteUser($s) {
+    public static function deleteUser($s,$token) {
         $result = false;
+
+        if(!isset($token) || $token !== $_SESSION['token']) {
+            echo '不正アクセスの可能性があります';
+            exit();
+        }
 
         try {
 
@@ -23,8 +28,13 @@ class Logic {
         }
     }
 
-    public static function updateUser($id,$name,$number) {
+    public static function updateUser($id,$name,$number,$token) {
         $result = false;
+
+        if(!isset($token) || $token !== $_SESSION['token']) {
+            echo '不正アクセスの可能性があります';
+            exit();
+        }
 
         try {
             $sql = 'UPDATE carry SET id=?,name=?,number=? WHERE id=?';

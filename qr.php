@@ -2,6 +2,16 @@
 session_start();
 require_once 'connect.php';
 
+// if(isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+//     echo '不正アクセスの可能性があります';
+//     exit();
+// }
+
+if(!$_SESSION['login']) {
+    header("Location:login.php");
+    exit;
+}
+
 $sql = 'SELECT qr from free WHERE name=?';
 $db = getDb();
 $stmt = $db->prepare($sql);
@@ -70,5 +80,6 @@ $qr = $stmt->fetch(PDO::FETCH_ASSOC);
         <img src="<?= $qr['qr'] ?>"><br><br>
         <a href="sampleLogin.php">認証へすすむ</a>
     </div> -->
+<script src="sub.js"></script>
 </body>
 </html>
